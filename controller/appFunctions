@@ -1,0 +1,74 @@
+const userModel = require('../models/user');
+const questionModel = require('../models/questions');
+const bcrypt = require('bcrypt');
+
+const homepage = (req,res) => {
+  questionModel.countDocuments({},(err, count) => {
+    if (err){
+      res.render('mainPage', {
+        message: err
+      })
+    }else{
+      if(count == 0)
+      {
+        res.render('mainPage', {
+          message: `There are no questions`
+        })
+      }else{
+        res.render('mainPage', {
+          message: `There are ${count} questions`
+        })
+      }
+    }
+});
+}
+
+const authentication= (req,res) => {
+  res.render('authenticationPage', {
+    error: "",
+    loginError:""
+  });
+}
+const registration =(req,res) => {
+  if(req.body.Password != req.body.RepeatedPassword){
+    res.render('authenticationPage', {
+      error: "Passwords don't match!"
+    })
+  }
+  else{
+    let hashedPassword = bcrypt.hashSync(req.body.Password, 12);
+    let userData = {
+      ...req.body,
+      Password: hashedPassword
+    }
+    let newUser = new userModel(userData);
+    newUser.save()
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      res.render('authenticationPage',{
+        error: err,
+        loginError:""
+      })
+    })
+
+  }
+}
+const logIn = async (req,res) => {
+  let user = await userModel.findOne({Email: req.body.Email});
+  if(!user){
+   res.render('authenticationPage', {
+    loginError: "Please, sign up first",
+    error:""
+   })
+  }else{
+    console.log("hi")
+  }
+  
+}
+module.exports = {
+  homepage,
+  authentication,
+  registration,
+  logIn}
