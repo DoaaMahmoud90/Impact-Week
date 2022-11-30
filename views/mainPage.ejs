@@ -13,7 +13,12 @@
   <div id="main-container">
     <div class="row">
       <div class="col-1">
-        <button type="button" class="btn btn-warning"><a href="/auth" id="log-in">Log in</a></button>
+        <% if(status === "loggedIn"){ %>
+          <button type="button" class="btn btn-warning"><a href="/logOut" class="log">Log out</a></button>
+        <% } else {%>
+          <button type="button" class="btn btn-warning"><a href="/auth" class="log">Log in</a></button>
+        <% } %>
+      
       </div>
       <div class="col text-center">
         <h4>Matrix Master Community</h4>
