@@ -1,13 +1,25 @@
 const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema({
-  Description:{
+  Description: {
     type: String,
+    require: true,
+    minLength: [5, "Please add more characters to your description"],
+    maxLength: [1200, "Comment to long, max 1200 characters"]
+  },
+  User_id: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "User",
     require: true
+  },
+  Question_id: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Question",
+    require : true
   }
 }, {
   timestamps:true
 });
 
-const Question = mongoose.model('question', questionSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
-module.exports = Question;
+module.exports = Comment;
