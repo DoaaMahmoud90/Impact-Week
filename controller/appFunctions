@@ -1,6 +1,7 @@
 const userModel = require('../models/user');
 const questionModel = require('../models/questions');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const homepage = (req,res) => {
   questionModel.countDocuments({},(err, count) => {
@@ -12,27 +13,30 @@ const homepage = (req,res) => {
       if(count == 0)
       {
         res.render('mainPage', {
-          message: `There are no questions`
+          message: 'There are no questions',
+          status: "loggedOut"
         })
       }else{
         res.render('mainPage', {
-          message: `There are ${count} questions`
+          message: `There are ${count} questions`,
+          status: "loggedOut"
         })
       }
     }
 });
 }
 
-const authentication= (req,res) => {
+const showAuthenPage= (req,res) => {
   res.render('authenticationPage', {
     error: "",
     loginError:""
   });
 }
-const registration =(req,res) => {
+const signUp =(req,res) => {
   if(req.body.Password != req.body.RepeatedPassword){
     res.render('authenticationPage', {
-      error: "Passwords don't match!"
+      error: "Passwords don't match!",
+      loginError: ""
     })
   }
   else{
@@ -43,7 +47,9 @@ const registration =(req,res) => {
     }
     let newUser = new userModel(userData);
     newUser.save()
-    .then(() => {
+    .then((user) => {
+      const userToken = jwt.sign({id: user._id}, 'secret', {expiresIn: '1d'});
+      res.cookie('isLoggedIn', userToken);
       res.redirect('/');
     })
     .catch(err => {
@@ -63,12 +69,36 @@ const logIn = async (req,res) => {
     error:""
    })
   }else{
-    console.log("hi")
+    let checkPassword = bcrypt.compareSync(req.body.Password, user.Password);
+    if(!checkPassword){
+      res.render('authenticationPage', {
+        loginError: "Wrong Password!",
+        error: ""
+      })
+    }
+    else{
+      const userToken = await jwt.sign({id: user._id}, 'secret', {expiresIn: '1d'});
+      res.cookie('isLoggedIn', userToken);
+      res.redirect('/');
+    }
   }
-  
 }
+
+const loggingOut = (req,res) => {
+  res.clearCookie('isLoggedIn');
+  res.redirect('/');
+}
+
+const createQuestion = (req,res) => {
+  console.log('createQuestion')
+}
+
+
+
 module.exports = {
   homepage,
-  authentication,
-  registration,
-  logIn}
+  showAuthenPage,
+  signUp,
+  logIn,
+  createQuestion,
+  loggingOut}
