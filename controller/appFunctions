@@ -13,11 +13,13 @@ const homepage = (req,res) => {
       if(count == 0)
       {
         res.render('mainPage', {
-          message: `There are no questions`
+          message: 'There are no questions',
+          status: "loggedOut"
         })
       }else{
         res.render('mainPage', {
-          message: `There are ${count} questions`
+          message: `There are ${count} questions`,
+          status: "loggedOut"
         })
       }
     }
@@ -82,8 +84,13 @@ const logIn = async (req,res) => {
   }
 }
 
+const loggingOut = (req,res) => {
+  res.clearCookie('isLoggedIn');
+  res.redirect('/');
+}
+
 const createQuestion = (req,res) => {
-  console.log(req.body)
+  console.log('createQuestion')
 }
 
 
@@ -93,4 +100,5 @@ module.exports = {
   showAuthenPage,
   signUp,
   logIn,
-  createQuestion}
+  createQuestion,
+  loggingOut}
