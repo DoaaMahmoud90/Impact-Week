@@ -24,24 +24,40 @@ const postQuestion = (req, res) => {
     }
 }
 
-const postComment = (req, res) => {
-    const newComment = {
-        description: req.body.description,
-        // Get user Id from cookie
-        user_id: user.id,
-        question_id: req.params.id
+const viewQuestion = (req, res) => {
+
+
+    if (req.method == "GET"){
+        Question.findById({id: req.params.id})
+            .then(result => {
+                
+            })
+            .catch()
+                res.render('questionDetails')
     }
 
-    Comment.save(newComment)
-        .then(res => {
-            message = "Your comment has been posted"
-            console.log("comment saved")
-            res.render('homepage', {message})
-        })
-        .catch(err =>console.log('comment error'), res.render('mainPage', {message:err}))
+    if (req.method == "POST"){
+
+        const newComment = {
+            description: req.body.description,
+            // Get user Id from cookie
+            user_id: user.id,
+            question_id: req.params.id
+        }
+        
+        Comment.save(newComment)
+            .then(res => {
+                message = "Your comment has been posted"
+                console.log("comment saved")
+                res.render('homepage', {message})
+            })
+            .catch(err =>console.log('comment error'), res.render('mainPage', {message:err}))
+    }
 }
+
+
 
 module.exports = {
     postQuestion,
-    postComment
+    viewQuestion
 }
