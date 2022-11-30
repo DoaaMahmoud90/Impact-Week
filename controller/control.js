@@ -51,7 +51,7 @@ const viewQuestion = async (req, res) => {
     }
 }
 
-editQuestion = (req, res) => {
+const editQuestion = (req, res) => {
     if (req.method == "GET"){
         Question.findById({_id: req.params.id})
             .then(result => {
@@ -74,8 +74,23 @@ editQuestion = (req, res) => {
     }
 }
 
+const deleteComment = (req, res){
+    Comment.findByIdAndDelete({_id: req.params.id})
+        .then(()=> res.redirect('/'))
+        .catch(()=> res.redirect('/', {message: 'something went wrong'}))
+}
+
+const deleteQuestion = (req, res){
+    Question.findByIdAndDelete({_id: req.params.id})
+        .then(()=> res.redirect('/'))
+        .catch(()=> res.redirect('/', {message: 'something went wrong'}))
+}
+
+
 module.exports = {
     postQuestion,
     viewQuestion,
-    editQuestion
+    editQuestion,
+    deleteComment,
+    deleteQuestion
 }
