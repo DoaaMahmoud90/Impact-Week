@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
   Password:{
     type: String,
     require: true
-  }
+  },
+  questions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'question'
+  }]
 });
 
 const User= mongoose.model('user', userSchema);
