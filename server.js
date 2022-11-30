@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 require('dotenv').config();
 require('./config/mongoose');
 const route = require("./config/route.js");
@@ -8,6 +9,13 @@ app.use(express.urlencoded({
 }));
 app.set("view engine", "ejs");
 app.use(express.static('public'));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
 app.use(route);
 app.listen(3000, () => {
   console.log("server is on port 3000");

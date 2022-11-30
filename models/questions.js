@@ -7,6 +7,10 @@ const questionSchema = new mongoose.Schema({
   Description:{
     type: String,
     require: true
+  },
+  user_id:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
   }
 }, {
   timestamps:true

@@ -8,6 +8,10 @@
   text-decoration: none;
   color: black;
 }
+#add-btn{
+  text-decoration: none;
+  color: white;
+}
 .box{
   display: flex;
   height: 400px;
