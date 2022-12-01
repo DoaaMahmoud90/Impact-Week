@@ -15,6 +15,7 @@
           <% result.forEach(d => { %>
             <h5><%= d.Title %></h5>
             <p><%= d.Description %></p>
+            <a href="/question/<%= d._id %>">See more</a>
           <% })%>
 
         <% }%>

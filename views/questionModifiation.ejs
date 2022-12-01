@@ -1,3 +1,9 @@
 <%- include('./template/openTemplate') %>
-
+<form action="/question/edit/<%= question._id %>" method="POST">
+  <label for="question">Question</label>
+  <input type="text" id="question" name="question" value="<%= question.Title %>">
+  <label for="description">description</label>
+  <input type="text" id="description" name="description" value="<%= question.Description %>">
+  <button type="submit">Submit</button>
+</form>
 <%- include('./template/closeTemplate') %>

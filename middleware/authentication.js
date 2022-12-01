@@ -1,7 +1,9 @@
+
 const { JsonWebTokenError } = require('jsonwebtoken');
-const questionModel = require('../models/questions');
+const questionModel = require('../models/question');
 const userModel = require('../models/user');
 const jwt = require('jsonwebtoken');
+
 const checkToken = (req,res, next) => {
     if(req.header('cookie')){
       next();
