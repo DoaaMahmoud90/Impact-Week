@@ -1,6 +1,7 @@
 const Comment = require('../models/comment')
 const mongoose = require('mongoose')
 const Question = require('../models/question')
+const { options } = require('../config/route')
 
 // Render add Question page
 const addQuestion =async  (req, res) => {
@@ -27,9 +28,8 @@ const viewQuestion = (req, res) => {
 
     if (req.method == "GET"){
         Question.findById({_id: req.params.id})
-            .populate({path:'Comment'})
+            .populate({path:'Comment', options: {sort: '-updatedAt'}})
             .then(result => {
-                console.log(result)
                 res.render('questionDetails', {question: result})
             })
             .catch( err => console.log(err))
@@ -43,11 +43,20 @@ const viewQuestion = (req, res) => {
             // user_id: user.id,
             Question: req.params.id
         })
-        console.log(newComment)
         newComment.save()
-            .then(() => {
-                message = "Your comment has been posted"
-                res.render('questionDetails', {question: 'test'})
+            .then((result) => {
+                // Add Comment ID to the question
+                Question.findByIdAndUpdate({_id:req.params.id})
+                    .then(result =>{
+                        result.Comment.push(newComment._id)
+                        result.save()
+                            .then(()=>{
+                                message = "Your comment has been posted"
+                                res.redirect(`/question/${req.params.id}`)
+                            })
+                            .catch(err=>console.log(err))
+                    })
+                    .catch(err=>console.log(err))
             })
             .catch(err => res.redirect('/', {message:err}))
     }
