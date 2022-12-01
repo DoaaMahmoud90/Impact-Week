@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 require('./config/mongoose');
 const route = require("./config/route.js");
@@ -9,6 +10,7 @@ app.use(express.urlencoded({
 }));
 app.set("view engine", "ejs");
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
