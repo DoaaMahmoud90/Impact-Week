@@ -26,7 +26,7 @@ const checkStatus = (req,res, next) => {
           message: `There are ${count} questions`,
           status: "loggedIn"
         })
-           }
+      }
     })
   }
 }
