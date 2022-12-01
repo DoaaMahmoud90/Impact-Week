@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   Questions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question'
+  }],
+  Comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
   }]
 });
 

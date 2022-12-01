@@ -10,13 +10,13 @@
       <div class="col text-center">
         <h4>Matrix Master Community</h4>
         <% if (result.length > 0){ %>
-          <p>There are <%= result.length%> Questions</p>
-          <!-- Questions  -->
-          <% result.forEach(d => { %>
-            <h5><%= d.Title %></h5>
-            <p><%= d.Description %></p>
-            <a href="/question/<%= d._id %>">See more</a>
-          <% })%>
+            <p>There are <%= result.length%> Questions</p>
+            <!-- Questions  -->
+            <% result.forEach(d => { %>
+              <h5><%= d.Title %></h5>
+              <p><%= d.Description %></p>
+              <a href="/question/<%= d._id %>">See more</a>
+            <% })%>
 
         <% }%>
       </div>

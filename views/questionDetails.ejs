@@ -2,8 +2,14 @@
   <%- include('./template/openTemplate') %>
     <h5><%= question.Title %></h5>
     <p><%= question.Description %></p>
+    <p>Author: <%= question.User.UserName%></p>
   </div>
-  <a href="/question/edit/<%= question._id %>">Edit Question</a>
+
+  <% if (user && user.Questions.includes(question._id)) {%>
+      <a href="/question/edit/<%= question._id %>">Edit Question</a>
+      <a href="/question/delete/<%= question._id %>">Delete Question</a>
+  <% }
+
   <div class="comments">
     <form action="/question/<%= question._id %>" method="POST">
       <label for="comment">Comment</label>
@@ -13,6 +19,9 @@
     <% if (question.Comment.length > 0 ){ %>
       <% question.Comment.forEach((c) => { %>
         <p><%= c.Description %></p>
+        <% if (user && user.Comments.includes(c._id)) {%>
+          <a href="/comment/delete/:id">Delete Comment</a>
+        <% } %>
       <% })%>
     <% } %>
 <%- include('./template/closeTemplate') %>
