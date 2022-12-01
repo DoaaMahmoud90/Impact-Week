@@ -1,4 +1,4 @@
-const questionModel = require('../models/questions');
+const questionModel = require('../models/question');
 const checkToken = (req,res, next) => {
     if(req.header('cookie')){
       next();

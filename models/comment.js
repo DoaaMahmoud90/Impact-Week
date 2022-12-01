@@ -6,12 +6,12 @@ const commentSchema = new mongoose.Schema({
     minLength: [5, "Please add more characters to your description"],
     maxLength: [1200, "Comment to long, max 1200 characters"]
   },
-  User_id: {
-    type: mongoose.Schema.Types.ObjectId, 
+  User: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     require: true
   },
-  Question_id: {
+  Question: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Question",
     require : true

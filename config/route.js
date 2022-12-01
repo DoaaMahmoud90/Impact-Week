@@ -10,7 +10,9 @@ router.get('/auth', apps.showAuthenPage);
 router.get('/logOut', apps.loggingOut);
 router.post('/signUp', apps.signUp);
 router.post('/logIn', apps.logIn);
+
 router.get('/addQuestion', control.addQuestion)
 router.post('/postQuestion', control.postQuestion)
-
+router.all('/question/:id', control.viewQuestion)
+router.all('/question/edit/:id', control.editQuestion)
 module.exports = router;
