@@ -5,11 +5,12 @@ const control = require('../controller/control')
 const auth = require('../middleware/authentication');
 
 
-router.get('/',auth.checkStatus, apps.homepage);
+router.get('/', apps.homepage);
 router.get('/auth', apps.showAuthenPage);
-router.get('/addQuestion', auth.checkToken,apps.createQuestion);
 router.get('/logOut', apps.loggingOut);
 router.post('/signUp', apps.signUp);
 router.post('/logIn', apps.logIn);
-router.all('/addQuestion', control.postQuestion)
+router.get('/addQuestion', control.addQuestion)
+router.post('/postQuestion', control.postQuestion)
+
 module.exports = router;

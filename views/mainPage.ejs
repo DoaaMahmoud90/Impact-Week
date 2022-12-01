@@ -22,7 +22,15 @@
       </div>
       <div class="col text-center">
         <h4>Matrix Master Community</h4>
-        <p><%= message %></p>
+        <% if (result.length > 0){ %>
+          <p>There are <%= result.length+1 %> Questions</p>
+          <!-- Questions  -->
+          <% result.forEach(d => { %>
+            <h5><%= d.Title %></h5>
+            <p><%= d.Description %></p>
+          <% })%>
+
+        <% }%>
       </div>
     </div>
     <div class="row">
@@ -30,6 +38,7 @@
       </div>
       <div class=" col text-center">
         <a href="/addQuestion" id="add-btn"><button type="button" class="btn btn-success">Add Question</button></a>
+
       </div>
     </div>
     

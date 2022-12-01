@@ -1,28 +1,22 @@
 const Comment = require('../models/comments')
+const mongoose = require('mongoose')
 const Question = require('../models/questions')
+
+const addQuestion = (req, res) => {
+    res.render('questionInsertion')
+}
 
 const postQuestion = (req, res) => {
 
-    if (req.method=="GET"){
-        res.render('questionInsertion')
-    }
-
-    if (req.method == "POST"){
-
-        Question.create({
-            title: req.body.title,
-            description: req.body.description,
-            // Get user Id from cookie
-            // user_id: user.id
-        })
-            .then(result => {
-                console.log('succes')
-                message = "Your question has been posted"
-                res.redirect('/', {message})
-            })
-            .catch(err => res.render('mainPage', {message:err}, console.log('f')))
-    }
+    const question = new Question({
+        Title: req.body.question,
+        Description: req.body.description
+    })
+    question.save()
+        .then( () => res.redirect('/'))
+        .catch(err => console.log(err))
 }
+
 
 const viewQuestion = async (req, res) => {
 
@@ -74,13 +68,13 @@ const editQuestion = (req, res) => {
     }
 }
 
-const deleteComment = (req, res){
+const deleteComment = (req, res) => {
     Comment.findByIdAndDelete({_id: req.params.id})
         .then(()=> res.redirect('/'))
         .catch(()=> res.redirect('/', {message: 'something went wrong'}))
 }
 
-const deleteQuestion = (req, res){
+const deleteQuestion = (req, res) =>{
     Question.findByIdAndDelete({_id: req.params.id})
         .then(()=> res.redirect('/'))
         .catch(()=> res.redirect('/', {message: 'something went wrong'}))
@@ -92,5 +86,6 @@ module.exports = {
     viewQuestion,
     editQuestion,
     deleteComment,
-    deleteQuestion
+    deleteQuestion,
+    addQuestion
 }

@@ -1,29 +1,15 @@
 const userModel = require('../models/user');
-const questionModel = require('../models/questions');
+const Question = require('../models/questions');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const homepage = (req,res) => {
-  questionModel.countDocuments({},(err, count) => {
-    if (err){
-      res.render('mainPage', {
-        message: err
-      })
-    }else{
-      if(count == 0)
-      {
-        res.render('mainPage', {
-          message: 'There are no questions',
-          status: "loggedOut"
-        })
-      }else{
-        res.render('mainPage', {
-          message: `There are ${count} questions`,
-          status: "loggedOut"
-        })
-      }
-    }
-});
+  Question.find().sort({updatedAt: -1})
+    .then(result => {
+      console.log(result)
+      res.render('mainPage', {result: result, message: '', status: ''})
+    })
+    .catch(err => res.render('mainPage', {message: "no questions found", result: [''], status: ''}))
 }
 
 const showAuthenPage= (req,res) => {
@@ -89,16 +75,9 @@ const loggingOut = (req,res) => {
   res.redirect('/');
 }
 
-const createQuestion = (req,res) => {
-  console.log('createQuestion')
-}
-
-
-
 module.exports = {
   homepage,
   showAuthenPage,
   signUp,
   logIn,
-  createQuestion,
   loggingOut}
