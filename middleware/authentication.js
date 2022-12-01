@@ -24,10 +24,8 @@ const checkUser = (req,res, next) => {
       res.locals.user = null;
       next();
      } else {
-      console.log(decodedToken.id);
       let user = await userModel.findById(decodedToken.id);
       res.locals.user = user;
-      console.log(res.locals);
       next();
      }
     })
@@ -38,6 +36,7 @@ const checkUser = (req,res, next) => {
 }
 
 
-module.exports = 
-  {checkToken, 
-  checkUser}
+module.exports = {
+  checkToken, 
+  checkUser
+}

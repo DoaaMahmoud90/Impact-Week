@@ -4,7 +4,7 @@ const apps = require('../controller/appFunctions');
 const control = require('../controller/control')
 const auth = require('../middleware/authentication');
 
-router.get('*', auth.checkUser);
+router.all('*', auth.checkUser);
 router.get('/', apps.homepage);
 router.get('/auth', apps.showAuthenPage);
 router.get('/logOut', apps.loggingOut);
@@ -14,4 +14,7 @@ router.get('/addQuestion', auth.checkToken, control.addQuestion)
 router.post('/postQuestion', control.postQuestion)
 router.all('/question/:id', control.viewQuestion)
 router.all('/question/edit/:id', control.editQuestion)
+router.get('/question/delete/:id', control.deleteQuestion)
+router.get('/comment/delete/:id', control.deleteComment)
+
 module.exports = router;

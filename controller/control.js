@@ -1,27 +1,34 @@
 const Comment = require('../models/comment')
 const mongoose = require('mongoose')
 const Question = require('../models/question')
-const { options } = require('../config/route')
+const User = require('../models/user')
 
 // Render add Question page
-const addQuestion =async  (req, res) => {
-    comments = await Comment.find()
-    console.log(comments)
+const addQuestion = (req, res) => {
     res.render('questionInsertion')
 }
 
 // Post question from Add page
 const postQuestion = (req, res) => {
-
+    const userId = res.locals.user._id
     const question = new Question({
         Title: req.body.question,
-        Description: req.body.description
+        Description: req.body.description,
+        User: userId
     })
     question.save()
-        .then(() => res.redirect('/'))
+        .then(() => {
+            User.findByIdAndUpdate({_id:userId})
+                .then(result => {
+                    result.Questions.push(question._id)
+                    result.save()
+                        .then(()=> res.redirect('/'))
+                        .catch(err => console.log(err))
+                })  
+                .catch(err => console.log(err))
+        })
         .catch(err => console.log(err))
 }
-
 
 // View One question and add Comments
 const viewQuestion = (req, res) => {
@@ -29,8 +36,10 @@ const viewQuestion = (req, res) => {
     if (req.method == "GET"){
         Question.findById({_id: req.params.id})
             .populate({path:'Comment', options: {sort: '-updatedAt'}})
+            .populate('User', {_id: 1, UserName: 1, Comments: 1})
             .then(result => {
-                res.render('questionDetails', {question: result})
+                console.log(result)
+                res.render('questionDetails', {question: result, user: res.locals.user})
             })
             .catch( err => console.log(err))
     }
@@ -44,15 +53,24 @@ const viewQuestion = (req, res) => {
             Question: req.params.id
         })
         newComment.save()
-            .then((result) => {
+            .then(() => {
                 // Add Comment ID to the question
                 Question.findByIdAndUpdate({_id:req.params.id})
                     .then(result =>{
                         result.Comment.push(newComment._id)
                         result.save()
                             .then(()=>{
-                                message = "Your comment has been posted"
-                                res.redirect(`/question/${req.params.id}`)
+                                User.findByIdAndUpdate({_id:res.locals.user._id})
+                                    .then(result => {
+                                        result.Comments.push(newComment._id)
+                                        result.save()
+                                            .then(()=> {
+                                                message = "Your comment has been posted"
+                                                res.redirect(`/question/${req.params.id}`)
+                                            })
+                                            .catch(err => console.log(err))
+                                    })  
+                                    .catch(err => console.log(err))
                             })
                             .catch(err=>console.log(err))
                     })
@@ -84,7 +102,6 @@ const editQuestion = (req, res) => {
     }
 }
 
-
 // tribute to DELETE
 const deleteComment = (req, res) => {
     Comment.findByIdAndDelete({_id: req.params.id})
@@ -97,7 +114,6 @@ const deleteQuestion = (req, res) => {
         .then(()=> res.redirect('/'))
         .catch(()=> res.redirect('/', {message: 'something went wrong'}))
 }
-
 
 module.exports = {
     postQuestion,
