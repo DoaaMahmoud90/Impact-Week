@@ -54,7 +54,7 @@ const logIn = async (req,res) => {
     error:""
    })
   }else{
-    let checkPassword = bcrypt.compareSync(req.body.Password, user.Password);
+    let checkPassword = bcrypt.compare(req.body.Password, user.Password);
     if(!checkPassword){
       res.render('authenticationPage', {
         loginError: "Wrong Password!",
@@ -79,4 +79,5 @@ module.exports = {
   showAuthenPage,
   signUp,
   logIn,
-  loggingOut}
+  loggingOut
+}
