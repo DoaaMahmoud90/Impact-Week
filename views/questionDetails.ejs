@@ -8,7 +8,7 @@
   <% if (user && user.Questions.includes(question._id)) {%>
       <a href="/question/edit/<%= question._id %>">Edit Question</a>
       <a href="/question/delete/<%= question._id %>">Delete Question</a>
-  <% }
+  <% } %>
 
   <div class="comments">
     <form action="/question/<%= question._id %>" method="POST">
@@ -19,8 +19,8 @@
     <% if (question.Comment.length > 0 ){ %>
       <% question.Comment.forEach((c) => { %>
         <p><%= c.Description %></p>
-        <% if (user && user.Comments.includes(c._id)) {%>
-          <a href="/comment/delete/:id">Delete Comment</a>
+          <% if (user && user.Comments.includes(c._id) || user && user.Questions.includes(question._id)) { %>
+          <a href="/comment/delete/<%= c._id%>">Delete Comment</a>
         <% } %>
       <% })%>
     <% } %>
