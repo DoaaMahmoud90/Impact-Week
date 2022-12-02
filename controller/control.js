@@ -38,7 +38,6 @@ const viewQuestion = (req, res) => {
             .populate({path:'Comment', options: {sort: '-updatedAt'}})
             .populate('User', {_id: 1, UserName: 1, Comments: 1})
             .then(result => {
-                console.log(result)
                 res.render('questionDetails', {question: result, user: res.locals.user})
             })
             .catch( err => console.log(err))
@@ -105,7 +104,7 @@ const editQuestion = (req, res) => {
 // tribute to DELETE
 const deleteComment = (req, res) => {
     Comment.findByIdAndDelete({_id: req.params.id})
-        .then(()=> res.redirect('/'))
+        .then(()=> res.redirect('back'))
         .catch(()=> res.redirect('/', {message: 'something went wrong'}))
 }
 
