@@ -34,7 +34,7 @@ const postQuestion = (req, res) => {
 const viewQuestion = (req, res) => {
 
     if (req.method == "GET"){
-        Question.findById({_id: req.params.id})
+        Question.findById({_id:req.params.id})
             .populate({path:'Comment', options: {sort: '-updatedAt'}})
             .populate('User', {_id: 1, UserName: 1, Comments: 1})
             .then(result => {

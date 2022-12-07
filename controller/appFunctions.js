@@ -38,17 +38,34 @@ const signUp =(req,res) => {
       res.redirect('/');
     })
     .catch(err => {
+      let errorMessage = handleErrors(err);
       res.render('authenticationPage',{
-        error: err,
+        error: errorMessage,
         loginError:""
-      })
+      });
     })
 
   }
 }
-const logIn = async (req,res) => {
-  let user = await userModel.findOne({Email: req.body.Email});
-  if(!user){
+
+const handleErrors = (err) => {
+  let error = "";
+  if(err.code === 11000){
+    error = "that email is already registered!";
+    return error;
+  }
+
+  if(err.message.includes('User validation failed')){
+    Object.values(err.errors).forEach(({properties}) =>{
+      error = properties.message;
+    });
+    return error;
+  }
+}
+
+ const logIn = async (req,res) => {
+ let user = await userModel.findOne({Email: req.body.Email});
+ if(!user){
    res.render('authenticationPage', {
     loginError: "Please, sign up first",
     error:""
