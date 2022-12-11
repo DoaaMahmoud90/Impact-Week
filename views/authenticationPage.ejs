@@ -1,26 +1,26 @@
 <%- include('./template/openTemplate') %>
     <div>
-      <p class="fs-1 text-center">Welcome to Matrix Master Community</p>
+      <p class="fs-2 text-center main-title">Welcome to Matrix Master Community</p>
     </div>
     <div class="box">
       <div id="left-side">
         <p>Log In</p>
         <form action="/logIn" method="POST"> 
-          <input placeholder="Email" name="Email">
-          <input placeholder="Password" name="Password">
+          <input placeholder="Email" name="Email" class="form-control">
+          <input placeholder="Password" name="Password" class="form-control">
+          <button type="submit" class="btn">Submit</button>
           <p><%= loginError %></p>
-          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
       <div id="right-side">
         <p>Sign Up</p>
         <form action="/signUp" method="POST">
-          <input placeholder="Username" name="UserName" required>
-          <input placeholder="Email" name="Email" required>
-          <input placeholder="Password" name="Password" required>
-          <input placeholder="Repeat Password" name= "RepeatedPassword" required>
+          <input placeholder="Full Name" name="UserName" class="form-control" required>
+          <input placeholder="Email" name="Email" class="form-control" required>
+          <input placeholder="Password" name="Password" class="form-control" required>
+          <input placeholder="Repeat Password" name= "RepeatedPassword" class="form-control"  required>
+          <button type="submit" class="btn ">Submit</button>
           <p><%= error %></p>
-          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

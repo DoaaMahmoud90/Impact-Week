@@ -1,9 +1,19 @@
 <%- include('./template/openTemplate') %>
-<form action="/question/edit/<%= question._id %>" method="POST">
-  <label for="question">Question</label>
-  <input type="text" id="question" name="question" value="<%= question.Title %>">
-  <label for="description">description</label>
-  <input type="text" id="description" name="description" value="<%= question.Description %>">
-  <button type="submit">Submit</button>
+<div>
+  <p class="fs-2 text-center main-title">Welcome to Matrix Master Community</p>
+</div>
+<div>
+  <p class="fs-4">Edit Question</p>
+</div>
+<form action="/question/edit/<%= question._id %>" method="POST" style="min-height: 68vh;">
+  <div class="mb-3" >
+    <input type="text" id="question" name="question" value="<%= question.Title %>" style="min-width: 20%; width: auto; min-height: 8vh;" >
+  </div>
+  <div class="mb-3">
+    <textarea type="text"  id="description" name="description"  style="min-width: 60%; min-height: 30vh;">
+      <%= question.Description %>
+    </textarea>
+  </div>
+  <button type="submit" class="btn" id="btn-insertion">Submit</button>
 </form>
 <%- include('./template/closeTemplate') %>

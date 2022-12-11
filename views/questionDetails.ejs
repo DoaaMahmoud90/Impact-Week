@@ -1,27 +1,58 @@
 
   <%- include('./template/openTemplate') %>
-    <h5><%= question.Title %></h5>
-    <p><%= question.Description %></p>
-    <p>Author: <%= question.User.UserName%></p>
-  </div>
+   <div class="post-container">
+    <h4><%= question.Title %></h4>
+    <div class="post-info-container">
+      <div class="question-description">
+        <p><%= question.Description %></p>
+      </div>
+      <div class="question-details">
+        <p>Author: <%= question.User.UserName%></p>
+        <p style="color: gray;"><%= new Date(question.createdAt).getDate() %>&sol;<%= new Date(question.createdAt).getMonth()+1 %>&sol;<%= new Date(question.createdAt).getYear()+1900 %></p>
+      </div>
+      <div class="question-buttons">
+        <% if (user && user.Questions.includes(question._id)) {%>
+          <div style="margin-bottom: 10px;">
+            <button type="button" class="btn btn-danger"><a href="/question/delete/<%= question._id %>" style="color: white;" class=" text-decoration-none">Delete </a></button>
+          </div>
+          <div>
+           <button type="button" class="btn btn-primary"><a href="/question/edit/<%= question._id %>" style="color: white;" class="text-decoration-none">Edit Question</a></button>
+          </div>
+        <% } %>
+      </div>
+    </div>
+   </div>
 
-  <% if (user && user.Questions.includes(question._id)) {%>
-      <a href="/question/edit/<%= question._id %>">Edit Question</a>
-      <a href="/question/delete/<%= question._id %>">Delete Question</a>
-  <% } %>
 
-  <div class="comments">
+
+  <div class="comments" style="padding-left: 50px; min-height: 60vh;">
+    <div>
+      <p class="fs-5">Add Comment</p>
+    </div>
     <form action="/question/<%= question._id %>" method="POST">
-      <label for="comment">Comment</label>
-      <textarea name="comment" id="comment"></textarea>
-      <button type="submit">Submit</button>
+      <div class="mb-3">
+        <textarea name="comment" id="comment" style="min-width: 60%; min-height: 10vh;"></textarea>
+      </div>
+      <button type="submit" class="btn" id="btn-insertion">Submit</button>
     </form>
     <% if (question.Comment.length > 0 ){ %>
       <% question.Comment.forEach((c) => { %>
-        <p><%= c.Description %></p>
-          <% if (user && user.Comments.includes(c._id) || user && user.Questions.includes(question._id)) { %>
-          <a href="/comment/delete/<%= c._id%>">Delete Comment</a>
-        <% } %>
+        <div class="post-info-container" style="margin-top: 30px;">
+          <div class="question-description">
+            <p><%= c.Description %></p>
+          </div>
+          <div class="question-details">
+            <p style="color: gray;"><%= new Date(c.createdAt).getDate() %>&sol;<%= new Date(c.createdAt).getMonth()+1 %>&sol;<%= new Date(c.createdAt).getYear()+1900 %></p>
+          </div>
+          <div class="question-buttons">
+            <% if (user && user.Comments.includes(c._id) || user && user.Questions.includes(question._id)) { %>
+              <div style="margin-bottom: 10px;">
+                <button type="button" class="btn btn-danger"><a href="/comment/delete/<%= c._id%>" style="color: white;" class=" text-decoration-none">Delete </a></button>
+              </div>
+              <% } %>
+          </div>
+        </div>
+         
       <% })%>
     <% } %>
 <%- include('./template/closeTemplate') %>
