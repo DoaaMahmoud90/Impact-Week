@@ -1,35 +1,83 @@
+body{
+  background-color: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+.main-header{
+  background-color: black;
+  position: fixed;
+  max-width: 95%;
+  width: inherit;
+  z-index: 1;
+}
+.posts-container{
+margin-top: 175px;
+}
 #main-container{
-  border: 1px solid;
-  margin: 30px;
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
   min-height: 500px;
   height: 90 vh;
 }
-.log{
-  text-decoration: none;
+.main-title{
+  text-shadow: 
+  0 0 5px rgb(47, 158, 255),
+  0 0 10px rgb(47, 158, 255),
+  0 0 20px rgb(47, 158, 255),
+  0 0 40px rgb(47, 158, 255),
+  0 0 80px rgb(47, 158, 255);
+}
+.btn-color{
   color: black;
 }
-#add-btn{
-  text-decoration: none;
-  color: white;
+.post-container{
+margin: 15px;
+padding-left: 15px;
+}
+.post-info-container{
+  display: flex;
+  justify-content: space-between;
+}
+.post-description{
+  width: 70%;
+  padding-left: 30px;
+}
+.post-details{
+  width: 25%;
+}
+.question-description{
+  width: 60%;
+  padding-left: 30px;
+}
+.question-details{
+  width: 15%;
+}
+.question-buttons{
+  width: 15%;
 }
 .box{
   display: flex;
-  height: 400px;
-  position: relative;
-  border: 1px solid red;
+  justify-content: space-around;
+  min-height: 68vh;
 }
 #left-side{
-  width: 50%;
-  padding-left: 20px;
+  width: 40%;
+  padding-left: 5%;
+  box-sizing: border-box;
+  border: 1px solid #ffc107;
 }
 #right-side{
-  width: 50%;
-  padding-left: 100px;
-  border-left: 3px solid gray;
+  width: 40%;
+  padding-left: 5%;
+  box-sizing: border-box;
+  border: 1px solid #ffc107;
 }
 #right-side form *{
   display: block;
   margin-bottom: 10px;
+  width: 80%;
 }
 #right-side form p{
   color: red;
@@ -37,18 +85,28 @@
 #left-side form *{
   display: block;
   margin-bottom: 10px;
+  width: 80%;
 }
 #left-side form button{
-  position: absolute;
-  bottom: 0px;
-  left: 25%;
+  background-color: #ffc107;
+  color: white;
 }
 #left-side p, #right-side p{
   margin-bottom: 30px;
-  font-weight: bold;
 }
 #right-side form button{
-  position: absolute;
-  bottom: 0px;
-  left: 75%;
+  background-color: #ffc107;
+  color: white;
+}
+#btn-insertion{
+  background-color: #ffc107;
+  color: white;
+}
+footer{
+  font-size: small; 
+  margin: auto;
+  text-align: center; 
+}
+footer p{
+  margin: 0;
 }
