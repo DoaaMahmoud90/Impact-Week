@@ -1,4 +1,3 @@
-
 const { JsonWebTokenError } = require('jsonwebtoken');
 const questionModel = require('../models/question');
 const userModel = require('../models/user');
@@ -9,7 +8,7 @@ const checkToken = (req,res, next) => {
       next();
     }
     else{
-    res.redirect('/');
+    res.redirect('/auth');
     }
 }
 

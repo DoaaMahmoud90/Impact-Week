@@ -1,42 +1,31 @@
 <%- include('./template/openTemplate') %>
-  <div class="main-header">
-    <div class="row">
-      <div class="col-1">
-        <% if(user) {%>
-          <button type="button" class="btn btn-warning"><a href="/logOut" class="btn-color text-decoration-none">LogOut</a></button>
-        <% } else {%>
-          <button type="button" class="btn btn-warning"><a href="/auth" class="btn-color text-decoration-none">LogIn</a></button>
-        <% } %>
-      </div>
-      <div class="col-10 text-center">
-        <p class=" fs-2 main-title">Matrix Master Community</p>
-        <p class=" fs-4 main-title">There are <%= result.length%> questions</p>
-      </div>
-      <div class="col-1">
-      </div>
-    </div>
-    <div style="text-align: center;">
-      <button type="button" class="btn btn-success "><a href="/addQuestion"  class="text-decoration-none btn-color">Add Question</a></button>
-    </div>
-  </div>
+<%- include('./template/header.ejs') %>
   <div class="posts-container">
+    <div style="text-align: center;">
+      <p class=" fs-4 main-title">There are <%= result.length%> questions</p>
+      <a href="/addQuestion">
+        <button type="button" class="btn btn-color rounded-0">
+          Add Question
+        </button>
+      </a>
+    </div>
     <% if (result.length > 0){ %>
       <% result.forEach(d => { %>
         <div class="post-container">
-          <h4><%= d.Title %></h4>
           <div class="post-info-container">
             <div class="post-description">
+              <h4><%= d.Title %></h4>
               <p><%= d.Description %></p>
             </div>
             <div class="post-details">
-              <p style="color: gray;"> <%= new Date(d.createdAt).getDate() %>&sol;<%= new Date(d.createdAt).getMonth()+1 %>&sol;<%= new Date(d.createdAt).getYear()+1900 %></p>
-              <a href="/question/<%= d._id %>" style="color: #ffc107 ">See more</a>
+              <a href="/question/<%= d._id %>" class="orangy">See more  <i class="fa-solid fa-arrow-right"></i></a>
+              <p class="gray"> <%= new Date(d.updatedAt).getDate() %>&sol;<%= new Date(d.updatedAt).getMonth()+1 %>&sol;<%= new Date(d.updatedAt).getYear()+1900 %></p>
+
             </div>
           </div>
         </div>
       <% })%>
     <% }%>
-  </div>
-    
+  </div>    
 <%- include('./template/closeTemplate') %>
-  
+

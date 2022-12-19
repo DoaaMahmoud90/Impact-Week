@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const homepage = (req,res) => {
   Question.find().sort({updatedAt: -1})
     .then(result => {
-      res.render('mainPage', {result: result, message: ''})
+      res.render('mainPage', {result, message: ''})
+
     })
     .catch(err => res.render('mainPage', {message: "no questions found", result: ['']}))
 }
@@ -38,6 +39,7 @@ const signUp =(req,res) => {
       res.redirect('/');
     })
     .catch(err => {
+
       let errorMessage = handleErrors(err);
       res.render('authenticationPage',{
         error: errorMessage,
@@ -47,6 +49,7 @@ const signUp =(req,res) => {
 
   }
 }
+
 
 const handleErrors = (err) => {
   let error = "";
@@ -96,4 +99,6 @@ module.exports = {
   showAuthenPage,
   signUp,
   logIn,
-  loggingOut}
+  loggingOut
+}
+

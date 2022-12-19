@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
   },
   Password:{
     type: String,
+
     require: [true, 'Please enter a password']
+
   },
   Questions: [{
     type: mongoose.Schema.Types.ObjectId,

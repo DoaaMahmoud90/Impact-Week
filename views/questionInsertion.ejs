@@ -1,19 +1,17 @@
+
 <%- include('./template/openTemplate') %>
-    <div>
-      <p class="fs-2 text-center main-title">Welcome to Matrix Master Community</p>
-    </div>
-    <div>
-      <p class="fs-4">Add Question</p>
-    </div>
-    <form action="/postQuestion" method="POST" style="min-height: 68vh;">
-      <div class="mb-3" >
-        <input type="text" placeholder="Question" id="question"  name="question" style="min-width: 20%; width: auto; min-height: 8vh;">
-      </div>
-      <div class="mb-3">
-        <textarea type="text"  id="description" name="description" style="min-width: 60%; min-height: 30vh;">
-        </textarea>
-      </div>
-      <button type="submit" class="btn" id="btn-insertion">Submit</button>
-    </form>
+<%- include('./template/header.ejs') %>
+<form class="form" action="/postQuestion" method="POST">
+  <div class="mb-3" >
+    <label class="fs-4" for="question">Add Question</label>
+    <input type="text" placeholder="Question" id="question"  name="question" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="fs-4">Description</label>
+    <textarea type="text"  id="description" name="description" required></textarea>
+  </div>
+  <button type="submit" class="btn rounded-0" id="btn-insertion">Submit</button>
+</form>
+
 
 <%- include('./template/closeTemplate') %>
