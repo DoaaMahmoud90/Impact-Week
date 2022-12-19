@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
   Password:{
     type: String,
     require: true,
-    lowercase: true
   },
   Questions: [{
     type: mongoose.Schema.Types.ObjectId,

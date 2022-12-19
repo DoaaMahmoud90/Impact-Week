@@ -22,7 +22,10 @@ const postQuestion = (req, res) => {
                 .then(result => {
                     result.Questions.push(question._id)
                     result.save()
-                        .then(()=> res.redirect('/'))
+                        .then((result)=> {
+                            console.log(result)
+                            res.redirect('/')
+                        })
                         .catch(err => console.log(err))
                 })  
                 .catch(err => console.log(err))
@@ -36,7 +39,7 @@ const viewQuestion = (req, res) => {
     if (req.method == "GET"){
         Question.findById({_id: req.params.id})
             .populate({path:'Comment', options: {sort: '-updatedAt'}})
-            .populate('User', {_id: 1, UserName: 1, Comments: 1})
+            .populate('User') 
             .then(result => {
                 res.render('questionDetails', {question: result, user: res.locals.user})
             })
@@ -59,6 +62,7 @@ const viewQuestion = (req, res) => {
                         result.Comment.push(newComment._id)
                         result.save()
                             .then(()=>{
+                                // Add User ID to comment
                                 User.findByIdAndUpdate({_id:res.locals.user._id})
                                     .then(result => {
                                         result.Comments.push(newComment._id)
@@ -75,7 +79,7 @@ const viewQuestion = (req, res) => {
                     })
                     .catch(err=>console.log(err))
             })
-            .catch(err => res.redirect('/', {message:err}))
+            .catch(err => console.log(err))
     }
 }
 

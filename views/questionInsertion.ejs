@@ -1,10 +1,16 @@
+
 <%- include('./template/openTemplate') %>
-    <form action="/postQuestion" method="POST">
-      <label for="question">Question</label>
-      <input type="text" id="question" name="question">
-      <label for="description">description</label>
-      <input type="text" id="description" name="description">
-      <button type="submit">Submit</button>
-    </form>
+<%- include('./template/header.ejs') %>
+<form class="form" action="/postQuestion" method="POST">
+  <div class="mb-3" >
+    <label class="fs-4" for="question">Add Question</label>
+    <input type="text" placeholder="Question" id="question"  name="question" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="fs-4">Description</label>
+    <textarea type="text"  id="description" name="description" required></textarea>
+  </div>
+  <button type="submit" class="btn rounded-0" id="btn-insertion">Submit</button>
+</form>
 
 <%- include('./template/closeTemplate') %>

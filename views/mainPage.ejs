@@ -1,32 +1,29 @@
 <%- include('./template/openTemplate') %>
-    <div class="row">
-      <div class="col-1">
-        <% if(user) {%>
-          <button type="button" class="btn btn-warning"><a href="/logOut" class="log">LogOut</a></button>
-        <% } else {%>
-          <button type="button" class="btn btn-warning"><a href="/auth" class="log">LogIn</a></button>
-        <% } %>
-      </div>
-      <div class="col text-center">
-        <h4>Matrix Master Community</h4>
-        <% if (result.length > 0){ %>
-            <p>There are <%= result.length%> Questions</p>
-            <!-- Questions  -->
-            <% result.forEach(d => { %>
-              <h5><%= d.Title %></h5>
+<%- include('./template/header.ejs') %>
+  <div class="posts-container">
+    <div style="text-align: center;">
+      <p class=" fs-4 main-title">There are <%= result.length%> questions</p>
+      <a href="/addQuestion">
+        <button type="button" class="btn btn-color rounded-0">
+          Add Question
+        </button>
+      </a>
+    </div>
+    <% if (result.length > 0){ %>
+      <% result.forEach(d => { %>
+        <div class="post-container">
+          <div class="post-info-container">
+            <div class="post-description">
+              <h4><%= d.Title %></h4>
               <p><%= d.Description %></p>
-              <a href="/question/<%= d._id %>">See more</a>
-            <% })%>
-        <% }%>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-1">
-      </div>
-      <div class=" col text-center">
-        <a href="/addQuestion" id="add-btn"><button type="button" class="btn btn-success">Add Question</button></a>
-      </div>
-    </div>
-    
+            </div>
+            <div class="post-details">
+              <a href="/question/<%= d._id %>" class="orangy">See more  <i class="fa-solid fa-arrow-right"></i></a>
+              <p class="gray"> <%= new Date(d.updatedAt).getDate() %>&sol;<%= new Date(d.updatedAt).getMonth()+1 %>&sol;<%= new Date(d.updatedAt).getYear()+1900 %></p>
+            </div>
+          </div>
+        </div>
+      <% })%>
+    <% }%>
+  </div>    
 <%- include('./template/closeTemplate') %>
-  

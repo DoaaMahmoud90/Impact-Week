@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const homepage = (req,res) => {
   Question.find().sort({updatedAt: -1})
     .then(result => {
-      res.render('mainPage', {result: result, message: ''})
+      res.render('mainPage', {result, message: ''})
     })
     .catch(err => res.render('mainPage', {message: "no questions found", result: ['']}))
 }
@@ -54,7 +54,7 @@ const logIn = async (req,res) => {
     error:""
    })
   }else{
-    let checkPassword = bcrypt.compare(req.body.Password, user.Password);
+    let checkPassword = bcrypt.compareSync(req.body.Password, user.Password);
     if(!checkPassword){
       res.render('authenticationPage', {
         loginError: "Wrong Password!",
