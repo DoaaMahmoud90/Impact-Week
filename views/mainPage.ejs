@@ -20,6 +20,7 @@
             <div class="post-details">
               <a href="/question/<%= d._id %>" class="orangy">See more  <i class="fa-solid fa-arrow-right"></i></a>
               <p class="gray"> <%= new Date(d.updatedAt).getDate() %>&sol;<%= new Date(d.updatedAt).getMonth()+1 %>&sol;<%= new Date(d.updatedAt).getYear()+1900 %></p>
+
             </div>
           </div>
         </div>
@@ -27,3 +28,4 @@
     <% }%>
   </div>    
 <%- include('./template/closeTemplate') %>
+

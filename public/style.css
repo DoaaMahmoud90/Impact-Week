@@ -1,3 +1,4 @@
+
 /* global */
 body{
   background-color: rgb(7, 7, 7);
@@ -47,12 +48,14 @@ a:hover{
 
 .main-title{
   color: darkblue;
+
   text-shadow: 
   0 0 5px rgb(47, 158, 255),
   0 0 10px rgb(47, 158, 255),
   0 0 20px rgb(47, 158, 255),
   0 0 40px rgb(47, 158, 255),
   0 0 80px rgb(47, 158, 255);
+
   transition: 1000ms;
 }
 
@@ -79,6 +82,7 @@ a:hover{
 .btn-color:hover{
   background-color: greenyellow;
   text-decoration: none;
+
 }
 
 /* Main */
@@ -136,6 +140,7 @@ a:hover{
 
 .auth-title{
   padding: 50px 0;
+
 }
 
 #left-side,
@@ -187,6 +192,7 @@ a:hover{
 
 /* Footer */
 
+
 footer{
   font-size: small; 
   margin: auto;
@@ -205,4 +211,3 @@ footer p{
 
 .comment-form div textarea{
   width: 100%;
-}
